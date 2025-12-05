@@ -1,6 +1,6 @@
 <?php
 // Pendiente de hacer seguridad
-session_start();
+require 'config_session.php';
 
 if (isset($_SESSION['email'])) {
     header("Location: dashboard.php");
@@ -102,6 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="password" class="form-control" id="password" name="password" placeholder="********">
                     </div>
                 </div>
+                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="remember">
                     <label class="form-check-label" for="remember">Recordarme</label>

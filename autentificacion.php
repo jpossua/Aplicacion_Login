@@ -1,6 +1,13 @@
 <?php
 // Iniciar sesión: session_start() inicia una sesión o reanuda una sesión existente
-session_start();
+// Iniciar sesión usando la configuración segura
+require 'config_session.php';
+
+if (!isset($_POST["csrf_token"]) || !isset($_SESSION["csrf_token"]) || $_POST["csrf_token"] !== $_SESSION["csrf_token"]) {
+    $_SESSION['error'] = "Token CSRF no válido";
+    header("Location: index.php");
+    exit();
+}
 
 if (isset($_POST['idUser']) && isset($_POST['password'])) {
     $_SESSION['idUser'] = $_POST['idUser'];
@@ -65,5 +72,4 @@ if ($mysqli->connect_error) {
         header("Location: index.php");
         exit();
     }
-    $mysqli->close(); // Cerrar la conexión al final del script si no hubo exit
 }
