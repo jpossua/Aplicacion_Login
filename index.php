@@ -92,14 +92,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="idUser" class="form-label">Id Usuario</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                        <input type="text" class="form-control" id="idUser" name="idUser" placeholder="Id Usuario" required>
+                        <input type="text" class="form-control" id="idUser" name="idUser" placeholder="Id Usuario">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="********" required>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="********">
                     </div>
                 </div>
                 <div class="mb-3 form-check">

@@ -30,7 +30,9 @@ if (!isset($_SESSION['idUser'])) {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <span class="nav-link text-white">Usuario: <?php echo htmlspecialchars($_SESSION['idUser']); ?></span>
+                        <!--<span class="nav-link text-white">Usuario: <?php //echo htmlspecialchars($_SESSION['idUser']);
+                                                                        ?></span>-->
+                        <span class="nav-link text-white">Usuario: <?php echo htmlspecialchars($_SESSION['nombre'] . ' ' . $_SESSION['apellidos']); ?></span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-danger text-white ms-2" href="logout.php">Cerrar Sesión</a>

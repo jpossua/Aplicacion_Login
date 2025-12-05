@@ -17,6 +17,8 @@ $user = "root"; // Inseguro *********
 $pass = ""; // Inseguro *********
 $db = "login-php";
 
+$mysqli = null; // Initialize $mysqli to null
+
 // Conectar a la base de datos
 try {
     $mysqli = new mysqli($host, $user, $pass, $db);
@@ -45,17 +47,23 @@ if ($mysqli->connect_error) {
         if ($row['password'] == $password) {
             $_SESSION['idUser'] = $usuario;
             $_SESSION['password'] = $password;
+            $_SESSION['nombre'] = $row['nombre'];
+            $_SESSION['apellidos'] = $row['apellidos'];
+            $mysqli->close(); // Cerrar la conexión despues de redirigir
             // Redirigir a inicio.php si la conexión es exitosa y se han seteado las variables de sesión
             header("Location: inicio.php");
             exit();
         } else {
             $_SESSION['error'] = "Contraseña incorrecta";
+            $mysqli->close(); // Cerrar la conexión despues de redirigir
             header("Location: index.php");
             exit();
         }
     } else {
         $_SESSION['error'] = "Usuario no encontrado";
+        $mysqli->close(); // Cerrar la conexión despues de redirigir
         header("Location: index.php");
         exit();
     }
+    $mysqli->close(); // Cerrar la conexión al final del script si no hubo exit
 }
