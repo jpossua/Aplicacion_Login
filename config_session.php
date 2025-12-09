@@ -30,9 +30,9 @@ if (time() - $_SESSION['last_regeneration'] >= $regenerate_interval) {
 
 // 5. Generación de un CSRF Token
 if (empty($_SESSION['csrf_token'])) {
-	// Creación de un CSRF Token: generar un token aleatorio de 64 bytes y luego hace una codificación hashing
-	$csrf_token = bin2hex(openssl_random_pseudo_bytes(64));
-    
+    // Creación de un CSRF Token: generar un token aleatorio de 64 bytes y luego hace una codificación hashing
+    $csrf_token = bin2hex(openssl_random_pseudo_bytes(64));
+
     // Resguardo del CSRF Token en una sesión
-	$_SESSION['csrf_token'] = $csrf_token;
+    $_SESSION['csrf_token'] = $csrf_token;
 }

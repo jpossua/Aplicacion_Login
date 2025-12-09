@@ -1,25 +1,6 @@
 <?php
-// Pendiente de hacer seguridad
+// Iniciar sesión con require que envia a config_session.php que hace la seguridad
 require 'config_session.php';
-
-if (isset($_SESSION['email'])) {
-    header("Location: dashboard.php");
-    exit();
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Aquí iría la validación con la base de datos
-    if ($email == "admin@example.com" && $password == "password") {
-        $_SESSION['email'] = $email;
-        header("Location: dashboard.php");
-        exit();
-    } else {
-        $error = "Credenciales incorrectas";
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .card-header i {
             font-size: 3rem;
         }
+
+        .form-text {
+            visibility: hidden;
+        }
     </style>
 </head>
 
@@ -87,13 +72,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 unset($_SESSION['error']);
             }
             ?>
-            <form action="autentificacion.php" method="POST">
+            <form action="autentificacion.php" method="POST" id="form1">
                 <div class="mb-3">
                     <label for="idUser" class="form-label">Id Usuario</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                         <input type="text" class="form-control" id="idUser" name="idUser" placeholder="Id Usuario">
                     </div>
+                    <div id="idUserHelp" class="form-text text-danger"></div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
@@ -101,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <span class="input-group-text"><i class="bi bi-lock"></i></span>
                         <input type="password" class="form-control" id="password" name="password" placeholder="********">
                     </div>
+                    <div id="passwordHelp" class="form-text text-danger"></div>
                 </div>
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
                 <div class="mb-3 form-check">
@@ -120,6 +107,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- Script para validar los datos del formulario -->
+    <script src="validarDatos.js"></script>
 </body>
 
 </html>
