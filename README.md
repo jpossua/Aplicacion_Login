@@ -353,6 +353,7 @@ VALUES ('admin@test.com', '$2y$10$...hash...', 'Admin', 'Test', 1);
 
 - **Backend:** PHP 8.x
 - **Base de datos:** MariaDB / MySQL
+- **Administración BD:** phpMyAdmin
 - **Frontend:** HTML5, CSS3, JavaScript
 - **Framework CSS:** Bootstrap 5.3.8
 - **Iconos:** Bootstrap Icons, Font Awesome
@@ -365,5 +366,3 @@ VALUES ('admin@test.com', '$2y$10$...hash...', 'Admin', 'Test', 1);
 - **Asignatura:** Desarrollo Web en Entorno Servidor(DWES)
 - **Centro:** IES Playamar
 - **Fecha:** 12/2025
-
-Proyecto desarrollado como ejercicio de seguridad web con PHP.
