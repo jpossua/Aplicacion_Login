@@ -38,14 +38,38 @@ if (formRegistro) {
         // Obtenemos los valores del formulario
         const idUser = document.getElementById('idUser').value;
         const password = document.getElementById('password').value;
-        // Si la función validarDatos() devuelve false, prevenimos el envío.
-        if (!validarDatos(idUser, password)) {
+        const nombre = document.getElementById('nombre').value;
+        const apellidos = document.getElementById('apellidos').value;
+
+        // Validar todos los campos
+        let valido = validarDatos(idUser, password);
+
+        // Validar nombre (obligatorio)
+        if (!nombre.trim()) {
+            valido = false;
+            mostrarError('nombreHelp', 'El nombre es obligatorio');
+        } else {
+            ocultarError('nombreHelp');
+        }
+
+        // Validar apellidos (obligatorio)
+        if (!apellidos.trim()) {
+            valido = false;
+            mostrarError('apellidosHelp', 'Los apellidos son obligatorios');
+        } else {
+            ocultarError('apellidosHelp');
+        }
+
+        // Si la validación falla, prevenimos el envío
+        if (!valido) {
             event.preventDefault(); // Parar el submit por defecto
         }
-        // Si la función validarDatos() devuelve true, ocultamos los errores
+        // Si la validación es exitosa, ocultamos los errores
         else {
             ocultarError('idUserHelp');
             ocultarError('passwordHelp');
+            ocultarError('nombreHelp');
+            ocultarError('apellidosHelp');
         }
     });
 }

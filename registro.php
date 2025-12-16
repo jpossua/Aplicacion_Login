@@ -75,7 +75,7 @@ require 'config_session.php';
 
                         <!-- ID de Usuario -->
                         <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="idUser" name="idUser" placeholder="correo@ejemplo.com" required />
+                            <input type="text" class="form-control" id="idUser" name="idUser" placeholder="correo@ejemplo.com" />
                             <label for="idUser">Id Usuario (Email)</label>
                         </div>
                         <!-- Contenedor del mensaje de error. JS alterna la visibilidad. -->
@@ -83,7 +83,7 @@ require 'config_session.php';
 
                         <!-- Campo de contraseña -->
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password"  />
                             <label for="password">Contraseña</label>
                         </div>
                         <!-- Contenedor del mensaje de error. JS alterna la visibilidad. -->
@@ -91,15 +91,19 @@ require 'config_session.php';
 
                         <!-- Nombre -->
                         <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required />
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre"  />
                             <label for="nombre">Nombre</label>
                         </div>
+                        <!-- Contenedor del mensaje de error. JS alterna la visibilidad. -->
+                        <div id="nombreHelp" class="form-text text-danger mb-3">Errores aqui</div>
 
                         <!-- Apellidos -->
                         <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Tus apellidos" required />
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Tus apellidos" />
                             <label for="apellidos">Apellidos</label>
                         </div>
+                        <!-- Contenedor del mensaje de error. JS alterna la visibilidad. -->
+                        <div id="apellidosHelp" class="form-text text-danger mb-3">Errores aqui</div>
 
                         <!-- CSRF Token -->
                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>">
