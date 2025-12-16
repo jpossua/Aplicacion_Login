@@ -359,10 +359,3 @@ VALUES ('admin@test.com', '$2y$10$...hash...', 'Admin', 'Test', 1);
 - **Iconos:** Bootstrap Icons, Font Awesome
 
 ---
-
-## Autor
-
-- **Nombre:** José Manuel Postigo
-- **Asignatura:** Desarrollo Web en Entorno Servidor(DWES)
-- **Centro:** IES Playamar
-- **Fecha:** 12/2025
