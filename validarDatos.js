@@ -1,27 +1,54 @@
 /**
  * Validar datos del formulario
  *  El ID del usuario: entre 8 y 15 caracteres
- * La contraseña del usuario: entre 6 y 15 caracteres. Haz que la contraseña tenga, obligatoriamente letras mayúsculas, minúsculas, 
- * caracteres especiales (menos pero no ‘ “ \ / < > = ( ) u otros caracteres que puedan ser parte de un script malicioso)
+ * La contraseña del usuario: entre 8 y 15 caracteres. Haz que la contraseña tenga, obligatoriamente letras mayúsculas, minúsculas, 
+ * caracteres especiales (menos pero no ' " \ / < > = ( ) u otros caracteres que puedan ser parte de un script malicioso)
  * True si los datos son validos, false en caso contrario
  */
 
+// ============================================
+// VALIDACIÓN DEL FORMULARIO DE LOGIN (form1)
+// ============================================
 // Añadimos un 'listener' al evento 'submit' del formulario.
 // Esto nos permite ejecutar código antes de que el formulario se envíe.
-document.getElementById('form1').addEventListener("submit", function (event) {
-    // Obtenemos los valores del formulario
-    const idUser = document.getElementById('idUser').value;
-    const password = document.getElementById('password').value;
-    // Si la función validarDatos() devuelve false, prevenimos el envío.
-    if (!validarDatos(idUser, password)) {
-        event.preventDefault(); // Parar el submit por defecto
-    }
-    // Si la función validarDatos() devuelve true, ocultamos los errores
-    else {
-        ocultarError('idUserHelp');
-        ocultarError('passwordHelp');
-    }
-});
+const formLogin = document.getElementById('form1');
+if (formLogin) {
+    formLogin.addEventListener("submit", function (event) {
+        // Obtenemos los valores del formulario
+        const idUser = document.getElementById('idUser').value;
+        const password = document.getElementById('password').value;
+        // Si la función validarDatos() devuelve false, prevenimos el envío.
+        if (!validarDatos(idUser, password)) {
+            event.preventDefault(); // Parar el submit por defecto
+        }
+        // Si la función validarDatos() devuelve true, ocultamos los errores
+        else {
+            ocultarError('idUserHelp');
+            ocultarError('passwordHelp');
+        }
+    });
+}
+
+// ============================================
+// VALIDACIÓN DEL FORMULARIO DE REGISTRO (formRegistro)
+// ============================================
+const formRegistro = document.getElementById('formRegistro');
+if (formRegistro) {
+    formRegistro.addEventListener("submit", function (event) {
+        // Obtenemos los valores del formulario
+        const idUser = document.getElementById('idUser').value;
+        const password = document.getElementById('password').value;
+        // Si la función validarDatos() devuelve false, prevenimos el envío.
+        if (!validarDatos(idUser, password)) {
+            event.preventDefault(); // Parar el submit por defecto
+        }
+        // Si la función validarDatos() devuelve true, ocultamos los errores
+        else {
+            ocultarError('idUserHelp');
+            ocultarError('passwordHelp');
+        }
+    });
+}
 
 // Función que valida los datos del formulario
 function validarDatos(idUser, password) {
@@ -33,13 +60,33 @@ function validarDatos(idUser, password) {
         mostrarError('idUserHelp', 'El idUser debe tener entre 8 y 15 caracteres');
     }
 
-    /* Longitud entre 6 y 15 caracteres para la contraseña y debe contener mayusculas, minusculas, números y caracteres especiales (menos pero no ‘ “ \ / < > = ( )
-     * u otros caracteres que puedan ser parte de un script malicioso)
-     */
-    if (password.length < 6 || password.length > 15 || !/[A-Za-z0-9]/.test(password) || !/[!@#$%^&*_+=\-\[\]{};':",.?]/.test(password) || /[‘“\\/<>=()]/.test(password)) {
+    /** 
+        * Longitud entre 8 y 15 caracteres para la contraseña y debe contener mayusculas, minusculas, números y caracteres especiales (menos pero no ' " \ / < > = ( )
+        * u otros caracteres que puedan ser parte de un script malicioso)
+        */
+    if (password.length < 8 || password.length > 15 || /['"'"\\/\<>=()]/.test(password)) {
         valido = false;
-        mostrarError('passwordHelp', `La contraseña debe tener entre 6 y 15 caracteres y debe contener mayusculas, minusculas, 
-            números y caracteres especiales, menos ‘ “ \ / < > = ( )`);
+        mostrarError('passwordHelp', `La contraseña debe tener entre 8 y 15 caracteres, sin: ' " ' " \\ / < > = ( )`);
+    }
+    // Debe contener al menos una mayuscula
+    else if (!/[A-Z]/.test(password)) {
+        valido = false;
+        mostrarError('passwordHelp', 'La contraseña debe contener al menos una mayúscula');
+    }
+    // Debe contener al menos una minuscula
+    else if (!/[a-z]/.test(password)) {
+        valido = false;
+        mostrarError('passwordHelp', 'La contraseña debe contener al menos una minúscula');
+    }
+    // Debe contener al menos un numero
+    else if (!/[0-9]/.test(password)) {
+        valido = false;
+        mostrarError('passwordHelp', 'La contraseña debe contener al menos un número');
+    }
+    // Debe contener al menos un caracter especial
+    else if (!/[!@#$%^&*_+=\-\[\]{};:,.?]/.test(password)) {
+        valido = false;
+        mostrarError('passwordHelp', 'La contraseña debe contener al menos un caracter especial: !@#$%^&*_+-[]{}:,.?');
     }
 
     return valido;
@@ -52,3 +99,30 @@ function mostrarError(id, error) {
 function ocultarError(id) {
     document.getElementById(id).style.visibility = "hidden";
 }
+
+
+// Lógica para alternar el color de fondo
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("btnOscuro");
+    if (btn) {
+        // Establecer por defecto a oscuro
+        document.body.style.backgroundColor = "#000";
+        document.body.style.color = "#fff";
+        btn.textContent = "☀";
+        let esOscuro = true;
+
+        btn.addEventListener("click", () => {
+            if (!esOscuro) {
+                document.body.style.backgroundColor = "#000";
+                document.body.style.color = "#fff";
+                btn.textContent = "☀";
+                esOscuro = true;
+            } else {
+                document.body.style.backgroundColor = "#fff";
+                document.body.style.color = "#000";
+                btn.textContent = "🌙";
+                esOscuro = false;
+            }
+        });
+    }
+});

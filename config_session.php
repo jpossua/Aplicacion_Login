@@ -12,6 +12,31 @@ session_set_cookie_params([
 // 1. Iniciar la sesión
 session_start();
 
+// ============================================
+// LÍMITE ABSOLUTO DE SESIÓN: 2 HORAS
+// ============================================
+// Tiempo máximo de vida de la sesión en segundos (2 horas = 7200 segundos)
+$session_max_lifetime = 7200;
+
+// Almacenar el timestamp de creación de la sesión si no existe
+if (!isset($_SESSION['session_created'])) {
+    $_SESSION['session_created'] = time();
+}
+
+// Verificar si la sesión ha superado el límite de 2 horas
+if (time() - $_SESSION['session_created'] >= $session_max_lifetime) {
+    // Limpiar todas las variables de sesión
+    session_unset();
+    // Destruir la sesión
+    session_destroy();
+    // Redirigir al login con mensaje de sesión expirada
+    header("Location: index.php?expired=1");
+    exit();
+}
+
+// ============================================
+// REGENERACIÓN DE ID DE SESIÓN
+// ============================================
 // 2. Define el intervalo en segundos (por ejemplo, 1200 segundos = 20 minutos)
 $regenerate_interval = 1200;
 

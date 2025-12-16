@@ -1,4 +1,5 @@
 <?php
+// Cargar configuración de sesión para acceder al token CSRF y mensajes
 require 'config_session.php';
 ?>
 <!DOCTYPE html>
@@ -7,7 +8,7 @@ require 'config_session.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
+    <title>Registro de Usuario</title>
     <!-- Icono de la pagina -->
     <link rel="shortcut icon" href="https://iesplayamar.es/wp-content/uploads/2021/09/logo-ies-playamar.png" type="image/x-icon">
 
@@ -50,33 +51,31 @@ require 'config_session.php';
             <div class="row d-flex align-items-center justify-content-center">
                 <div class="col-md-8 col-lg-7 col-xl-6">
                     <img src="img/login.svg"
-                        class="img-fluid" alt="Phone image">
+                        class="img-fluid" alt="Registration image">
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 
+                    <!-- Título del formulario -->
+                    <h2 class="mb-4"><i class="bi bi-person-plus-fill"></i> Registro de Usuario</h2>
+
                     <!-- Mostrar errores PHP -->
                     <?php
-                    // Mensaje de sesión expirada
-                    if (isset($_GET['expired']) && $_GET['expired'] == 1) {
-                        echo '<div class="alert alert-warning" role="alert"><i class="bi bi-clock-history"></i> Tu sesión ha expirado. Por favor, inicia sesión de nuevo.</div>';
-                    }
-                    // Mensaje de registro exitoso
-                    if (isset($_SESSION['registro_exito'])) {
-                        echo '<div class="alert alert-success" role="alert"><i class="bi bi-check-circle"></i> ' . $_SESSION['registro_exito'] . '</div>';
-                        unset($_SESSION['registro_exito']);
-                    }
-                    // Mensaje de error
-                    if (isset($_SESSION['error'])) {
-                        echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error'] . '</div>';
-                        unset($_SESSION['error']);
+                    if (isset($_SESSION['registro_error'])) {
+                        echo '<div class="alert alert-danger" role="alert">' . $_SESSION['registro_error'] . '</div>';
+                        unset($_SESSION['registro_error']);
                     }
                     ?>
 
-                    <form action="autentificacion.php" method="POST" id="form1">
+                    <!-- Información sobre la aprobación -->
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle"></i> Tu cuenta estará pendiente de aprobación por el administrador.
+                    </div>
 
-                        <!-- Email input -->
+                    <form action="procesar_registro.php" method="POST" id="formRegistro">
+
+                        <!-- ID de Usuario -->
                         <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="idUser" name="idUser" placeholder="name@example.com" />
+                            <input type="text" class="form-control" id="idUser" name="idUser" placeholder="correo@ejemplo.com" required />
                             <label for="idUser">Id Usuario (Email)</label>
                         </div>
                         <!-- Contenedor del mensaje de error. JS alterna la visibilidad. -->
@@ -84,29 +83,32 @@ require 'config_session.php';
 
                         <!-- Campo de contraseña -->
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
                             <label for="password">Contraseña</label>
                         </div>
                         <!-- Contenedor del mensaje de error. JS alterna la visibilidad. -->
                         <div id="passwordHelp" class="form-text text-danger mb-3">Errores aqui</div>
 
+                        <!-- Nombre -->
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required />
+                            <label for="nombre">Nombre</label>
+                        </div>
+
+                        <!-- Apellidos -->
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Tus apellidos" required />
+                            <label for="apellidos">Apellidos</label>
+                        </div>
+
                         <!-- CSRF Token -->
                         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>">
 
-                        <div class="d-flex justify-content-around align-items-center mb-4">
-                            <!-- Checkbox -->
-                            <!--<div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="remember" checked />
-                                <label class="form-check-label" for="remember"> Recordarme </label>
-                            </div>
-                            <a href="#!">¿Olvidaste tu contraseña?</a>
-                        </div>-->
+                        <!-- Botón de envío -->
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Registrarse</button>
 
-                            <!-- Boton de envio -->
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar Sesión</button>
-
-                            <!-- Enlace para registro -->
-                            <p class="text-center mt-3">¿No tienes cuenta? <a href="registro.php">Regístrate aquí</a></p>
+                        <!-- Enlace para volver al login -->
+                        <p class="text-center mt-3">¿Ya tienes cuenta? <a href="index.php">Iniciar Sesión</a></p>
                     </form>
                 </div>
             </div>

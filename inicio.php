@@ -15,45 +15,92 @@ if (!isset($_SESSION['idUser'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Aplicación Segura</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Icono de la pagina -->
+    <link rel="shortcut icon" href="https://iesplayamar.es/wp-content/uploads/2021/09/logo-ies-playamar.png" type="image/x-icon">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #fff;
+        }
+
+        @media (min-width: 992px) {
+            body {
+                overflow: hidden;
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-light">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <div class="container">
-            <a class="navbar-brand" href="#">Mi Aplicación</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <!--<span class="nav-link text-white">Usuario: <?php //echo htmlspecialchars($_SESSION['idUser']);
-                                                                        ?></span>-->
-                        <span class="nav-link text-white">Usuario: <?php echo htmlspecialchars($_SESSION['nombre'] . ' ' . $_SESSION['apellidos']); ?></span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-danger text-white ms-2" href="logout.php">Cerrar Sesión</a>
-                    </li>
-                </ul>
+    <button id="btnOscuro" type="button" class="btn btn-primary rounded-circle m-3 p-2 mt-3">🌙</button>
+    <section>
+        <div class="container py-5">
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="col-md-8 col-lg-7 col-xl-6">
+                    <img src="img/login.svg"
+                        class="img-fluid" alt="Welcome image">
+                </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+
+                    <!-- Título de bienvenida -->
+                    <h2 class="mb-4"><i class="bi bi-check-circle-fill text-success"></i> ¡Bienvenido!</h2>
+
+                    <!-- Información del usuario -->
+                    <div class="alert alert-success">
+                        <i class="bi bi-person-circle"></i>
+                        <strong>Usuario:</strong> <?php echo htmlspecialchars($_SESSION['nombre'] . ' ' . $_SESSION['apellidos']); ?>
+                    </div>
+
+                    <!-- Card de información -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-shield-check"></i> Sesión Activa</h5>
+                            <p class="card-text">Has iniciado sesión correctamente. Esta es la página de inicio protegida.</p>
+                            <p class="card-text text-muted"><small>Si intentas entrar aquí sin loguearte, serás redirigido al login.</small></p>
+                        </div>
+                    </div>
+
+                    <!-- Información de la sesión -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-info-circle"></i> Información de Seguridad</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li><i class="bi bi-clock"></i> La sesión expira en 2 horas</li>
+                                <li><i class="bi bi-arrow-repeat"></i> ID regenerado cada 20 minutos</li>
+                                <li><i class="bi bi-shield-lock"></i> Cookies seguras con HttpOnly</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Botón de cerrar sesión -->
+                    <a href="logout.php" class="btn btn-danger btn-lg btn-block">
+                        <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                    </a>
+
+                </div>
             </div>
         </div>
-    </nav>
+    </section>
 
-    <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-body text-center p-5">
-                <h1 class="display-4 text-success"><i class="bi bi-check-circle-fill"></i></h1>
-                <h2 class="mb-4">¡Has iniciado sesión correctamente!</h2>
-                <p class="lead">Esta es la página de inicio protegida (inicio.php).</p>
-                <p>Si intentas entrar aquí sin loguearte, serás redirigido al login.</p>
-            </div>
-        </div>
-    </div>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para el botón de tema oscuro/claro -->
+    <script src="validarDatos.js"></script>
 </body>
 
 </html>
